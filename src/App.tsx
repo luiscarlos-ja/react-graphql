@@ -4,19 +4,21 @@ import { Persons } from "./Persons.tsx";
 import { ALL_PERSONS } from "./graphql/queries.tsx";
 import { PERSON_ADDED } from "./graphql/graphql-subscriptions.tsx";
 import { useState } from "react";
-import LoginForm from "./LoginForm.tsx";
+import LoginForm from "./login/LoginForm.tsx";
 
 function App() {
+  const client = useApolloClient();
+  const { loading, error, data } = useQuery<AllPerson>(ALL_PERSONS);
+
   const [token, setToken] = useState<string | null>(() =>
     localStorage.getItem("phonenumbers-user-token")
   );
+
+  // Suscription Code
   const { data: dataSubscription, loading: loadingSubscription } =
     useSubscription<Person>(PERSON_ADDED);
   console.log(dataSubscription, loadingSubscription);
-
-  const { loading, error, data } = useQuery<AllPerson>(ALL_PERSONS);
-
-  const client = useApolloClient();
+  // End Suscription Code
 
   const logout = () => {
     setToken(null);

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useMutation } from "@apollo/client";
-import { LOGIN_USER } from "./login/graphql-queries";
+import { LOGIN_USER } from "./graphql-queries";
 
 type Props = {
   setToken: (token: string) => void;
